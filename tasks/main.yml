@@ -8,4 +8,4 @@
     name: nginx
     state: "{{ astar_service_state }}"
     enabled: "{{ astar_service_enabled }}"
-  when: skip-molecule == false
+  when: skip_molecule == false

@@ -35,4 +35,4 @@ astar_extra_commands: []
 #     - --ethapi=debug
 
 # Misc
-skip_molecule: false
+skip_molecule: false # To selectively skip certain tasks during testing
