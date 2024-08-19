@@ -5,7 +5,7 @@
 
 - name: Ensure astar service is running as configured.
   ansible.builtin.service:
-    name: nginx
+    name: astar
     state: "{{ astar_service_state }}"
     enabled: "{{ astar_service_enabled }}"
   when: not skip_molecule

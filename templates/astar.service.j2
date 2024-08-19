@@ -7,13 +7,15 @@ Group={{ astar_node_user }}
   
 ExecStart=/usr/local/bin/astar-collator \
   --name {{ astar_node_name }} \
-  --chain {{ astar_network_chain }} \
   --base-path {{ astar_data_dir }} \
   --telemetry-url '{{ astar_telemetry_url }}' \
-  {%- if astar_node_type == 'collator' +%}
-  --collator \
+  {%- if astar_node_type == 'collator' or astar_node_type == 'full' +%}
   --state-pruning {{ astar_collator_state_pruning }} \
   --blocks-pruning {{ astar_collator_blocks_pruning }} \
+  --sync {{ astar_sync_type }} \
+  {%- endif +%}
+  {%- if astar_node_type == 'collator' +%}
+  --collator \
   {%- endif +%}
   {%- if astar_node_type == 'archive' +%}
   --state-pruning archive \
@@ -24,7 +26,7 @@ ExecStart=/usr/local/bin/astar-collator \
   {%- for astar_extra_command in astar_extra_commands +%}
   {{ astar_extra_command }} \
   {%- endfor +%}
-  --sync warp
+  --chain {{ astar_network_chain }}
 
 Restart=always
 RestartSec=120
