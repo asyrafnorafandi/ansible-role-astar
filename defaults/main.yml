@@ -11,22 +11,23 @@ tz_region: Asia/Singapore
 apt_cache_valid_time: 86400 # One day
 
 # Astar System config
+# astar_client_version: v5.43.0 (To set specific version. Otherwise will pull latest stable)
 astar_node_user: astar
 astar_node_name: astar-node
 astar_network_chain: astar # shiden | shibuya
-astar_telemetry_url: wss://telemetry.polkadot.io/submit/0
+astar_telemetry_url: "wss://telemetry.polkadot.io/submit/ 0"
 astar_data_dir: /var/lib/astar
-astar_client_version: v5.43.0
 astar_client_arch: x86_64
 astar_service_state: started
 astar_service_enabled: true
 
 # Astar Node Config
-astar_node_type: "collator" # archive | collator
+astar_node_type: "full" # archive | collator | full
 astar_collator_state_pruning: 1000
 astar_collator_blocks_pruning: 1000
 astar_rpc_max_request_size: 1
 astar_rpc_max_response_size: 1
+astar_sync_type: warp
 
 astar_extra_commands: []
 # Example extra commands

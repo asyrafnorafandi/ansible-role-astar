@@ -56,7 +56,30 @@ Bond: 32,000 SDN tokens (32k $SDN)
 
 ## ✅ <a name="variables">Role Variables</a>
 
-None.
+| Key                           | Description                                         | Requirement | Default                                 |
+| ----------------------------- | --------------------------------------------------- | ----------- | --------------------------------------- |
+| swap_enabled                  | To enable swap                                      | optional    | true                                    |
+| swap_file_state               | Present / Absent                                    | optional    | present                                 |
+| swap_file_size_mb             | Swap Size                                           | optional    | "512"                                   |
+| swap_swappiness               | Set swapiness                                       | optional    | "60"                                    |
+| swap_file_path                | Directory path to swapfile                          | optional    | /swapfile                               |
+| tz_region                     | Server timezone region                              | optional    | Asia/Singapore                          |
+| apt_cache_valid_time          | apt cache valid time before expiry                  | optional    | 86400                                   |
+| astar_node_user               | Name of user to create for the service              | required    | astar                                   |
+| astar_node_name               | Name to run in the astar binary command             | required    | astar-node                              |
+| astar_network_chain           | Which network chain to run (astar, shiden, shibuya) | required    | astar                                   |
+| astar_telemetry_url           | Telemetry URL                                       | required    | "wss://telemetry.polkadot.io/submit/ 0" |
+| astar_data_dir                | Directory path to host Astar data storage           | required    | /var/lib/astar                          |
+| astar_client_arch             | Server architecture                                 | required    | x86_64                                  |
+| astar_service_state           | State of service (started, stopped)                 | required    | started                                 |
+| astar_service_enabled         | To automatically start service on server startup    | required    | true                                    |
+| astar_node_type               | Type of node to run (archive, collator, full)       | required    | full                                    |
+| astar_collator_state_pruning  | State pruning height                                | optional    | 1000                                    |
+| astar_collator_blocks_pruning | Block pruning height                                | optional    | 1000                                    |
+| astar_rpc_max_request_size    | RPC Max request size                                | optional    | 1                                       |
+| astar_rpc_max_response_size   | RPC Max response size                               | optional    | 1                                       |
+| astar_sync_type               | Type of sync to use (full, fast, fast-unsafe, warp) | optional    | warp                                    |
+| astar_extra_commands          | List of custom additional parameters to add         | optional    | []                                      |
 
 ## 🕸️ <a name="dependencies">Dependencies</a>
 
@@ -71,8 +94,35 @@ Ansible Role dependencies:
 
 ## 🔗 <a name="quick-start">Quick Start</a>
 
+Running an archive node:
+
 ```yaml
 - hosts: all
+  gather_facts: true
+  vars:
+    astar_node_type: archive
+  roles:
+    - asyrafnorafandi.astar
+```
+
+Running a full node:
+
+```yaml
+- hosts: all
+  gather_facts: true
+  vars:
+    astar_node_type: full
+  roles:
+    - asyrafnorafandi.astar
+```
+
+To run a collator, you must sync in "full" mode. Then you can re-run the playbook in "collator" mode.
+
+```yaml
+- hosts: all
+  gather_facts: true
+  vars:
+    astar_node_type: collator
   roles:
     - asyrafnorafandi.astar
 ```

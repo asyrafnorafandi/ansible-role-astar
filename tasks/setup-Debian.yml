@@ -24,6 +24,7 @@
       - jq
       - net-tools
       - logrotate
+      - curl
     state: present
 
 # Create dedicated user and directory
@@ -43,6 +44,18 @@
     mode: "0744"
 
 # Download and install binary
+- name: Get latest version
+  ansible.builtin.shell: |
+    curl -s https://api.github.com/repos/AstarNetwork/Astar/releases/latest | jq -r '.tag_name'
+  register: astar_grab_latest_version
+  changed_when: false
+  when: astar_client_version is not defined
+
+- name: Set latest version
+  ansible.builtin.set_fact:
+    astar_client_version: "{{ astar_grab_latest_version.stdout }}"
+  when: astar_client_version is not defined
+
 - name: Download Astar Collator binary
   ansible.builtin.get_url:
     url: "https://github.com/AstarNetwork/Astar/releases/download/{{ astar_client_version }}/astar-collator-{{ astar_client_version }}-ubuntu-{{ astar_client_arch }}.tar.gz"
@@ -61,15 +74,6 @@
     src: astar.service.j2
     dest: "/etc/systemd/system/astar.service"
     mode: "0744"
-
-- name: Systemd daemon reload
-  ansible.builtin.systemd:
-    daemon_reload: true
-  when: not skip_molecule
-
-- name: Start / Enable Astar service
-  ansible.builtin.systemd:
-    name: astar.service
-    state: "{{ astar_service_state }}"
-    enabled: "{{ astar_service_enabled }}"
-  when: not skip_molecule
+  notify:
+    - Restart astar
+    - Daemon reload

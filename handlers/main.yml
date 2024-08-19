@@ -4,9 +4,16 @@
   ansible.builtin.service:
     name: astar
     state: restarted
+    enabled: "{{ astar_service_enabled }}"
+  when: not skip_molecule
 
 - name: Reload astar
   ansible.builtin.service:
-    name: nginx
+    name: astar
     state: reloaded
   when: astar_service_state == "started"
+
+- name: Daemon reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+  when: not skip_molecule
