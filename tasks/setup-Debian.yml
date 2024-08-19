@@ -50,6 +50,8 @@
   register: astar_grab_latest_version
   changed_when: true
   when: astar_client_version is not defined
+  tags:
+    - molecule-idempotence-notest
 
 - name: Set latest version
   ansible.builtin.set_fact:
