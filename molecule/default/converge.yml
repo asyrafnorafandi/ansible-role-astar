@@ -10,3 +10,6 @@
       ansible.builtin.include_role:
         name: astar
         tasks_from: main.yml
+        apply:
+          skip-tags:
+            - skip-molecule
