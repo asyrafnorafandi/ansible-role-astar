@@ -19,7 +19,9 @@
 
 ## 📋 Table of Contents
 
-![GitHub Sponsors](https://img.shields.io/github/sponsors/asyrafnorafandi)
+![Ansible Role](https://img.shields.io/ansible/role/d/asyrafnorafandi/astar?logo=ansible&label=Ansible%20Role%20Downloads&link=https%3A%2F%2Fgalaxy.ansible.com%2Fui%2Fstandalone%2Froles%2Fasyrafnorafandi%2Fastar%2F)
+[![Molecule Tests](https://github.com/asyrafnorafandi/ansible-role-astar/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/asyrafnorafandi/ansible-role-astar/actions/workflows/test.yml)
+[![Ansible Lint](https://github.com/asyrafnorafandi/ansible-role-astar/actions/workflows/ansible-lint.yml/badge.svg?branch=main)](https://github.com/asyrafnorafandi/ansible-role-astar/actions/workflows/ansible-lint.yml)
 
 1. ⚙️ [Requirements](#requirements)
 2. ✅ [Role Variables](#variables)
