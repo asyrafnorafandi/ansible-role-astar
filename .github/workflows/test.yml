@@ -11,7 +11,6 @@ jobs:
     strategy:
       matrix:
         os:
-          - debian-12
           - ubuntu-22.04
     runs-on: ${{ matrix.os }}
     steps:
