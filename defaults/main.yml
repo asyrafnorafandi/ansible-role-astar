@@ -33,3 +33,6 @@ astar_extra_commands: []
 #   astar_extra_commands:
 #     - --enable-evm-rpc
 #     - --ethapi=debug
+
+# Misc
+skip_molecule: false
