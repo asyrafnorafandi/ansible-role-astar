@@ -1,4 +1,4 @@
-name: Release
+name: Release Galaxy Role
 
 "on":
   push:

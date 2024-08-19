@@ -1,4 +1,4 @@
-name: Molecule
+name: Molecule Tests
 
 on:
   pull_request:
@@ -7,11 +7,10 @@ on:
 
 jobs:
   molecule:
-    name: Molecule Tests
+    name: Run Tests
     strategy:
       matrix:
         os:
-          # - debian-12
           - ubuntu-22.04
     runs-on: ${{ matrix.os }}
     steps:
