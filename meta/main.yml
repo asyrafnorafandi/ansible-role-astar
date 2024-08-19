@@ -2,6 +2,7 @@
 dependencies:
   - role: geerlingguy.swap
     become: true
+    when: swap_enabled == true
 
 galaxy_info:
   role_name: astar

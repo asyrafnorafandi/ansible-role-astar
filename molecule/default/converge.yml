@@ -3,7 +3,7 @@
   hosts: localhost
 
   vars:
-    swap_file_state: absent
+    swap_enabled: false
 
   tasks:
     - name: Testing role

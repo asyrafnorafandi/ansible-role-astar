@@ -1,7 +1,8 @@
 ---
 # Swap Config
+swap_enabled: true
 swap_file_state: present # Set to absent to disable
-swap_file_size_mb: "8192"
+swap_file_size_mb: "512"
 swap_swappiness: "60"
 swap_file_path: /swapfile
 
