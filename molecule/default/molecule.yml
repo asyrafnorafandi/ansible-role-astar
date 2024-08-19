@@ -3,7 +3,6 @@ role_name_check: 1
 dependency:
   name: galaxy
   options:
-    requirements-file: requirements.yml
     ignore-errors: true
 platforms:
   - name: instance
