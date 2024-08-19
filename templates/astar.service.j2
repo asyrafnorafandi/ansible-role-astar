@@ -1,0 +1,35 @@
+[Unit]
+Description=Astar Node
+
+[Service]
+User={{ astar_node_user }}
+Group={{ astar_node_user }}
+  
+ExecStart=/usr/local/bin/astar-collator \
+  --name {{ astar_node_name }} \
+  --chain {{ astar_network_chain }} \
+  --base-path {{ astar_data_dir }} \
+  --telemetry-url '{{ astar_telemetry_url }}' \
+  {%- if astar_node_type == 'collator' +%}
+  --collator \
+  --state-pruning {{ astar_collator_state_pruning }} \
+  --blocks-pruning {{ astar_collator_blocks_pruning }} \
+  {%- endif +%}
+  {%- if astar_node_type == 'archive' +%}
+  --state-pruning archive \
+  --rpc-cors all \
+  --rpc-external \
+  --rpc-methods Safe \
+  {%- endif +%}
+  {%- for astar_extra_command in astar_extra_commands +%}
+  {{ astar_extra_command }} \
+  {%- endfor +%}
+  --sync warp
+
+Restart=always
+RestartSec=120
+
+[Install]
+WantedBy=multi-user.target
+
+

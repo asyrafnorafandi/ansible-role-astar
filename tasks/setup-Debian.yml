@@ -1,0 +1,73 @@
+---
+# Setup system tz and hostnme
+- name: Setup timezone
+  timezone:
+    name: "{{ tz_region }}"
+
+- name: Setup hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname.replace('_', '-') }}"
+
+# Install required packages/libraries
+- name: Update and upgrade apt packages
+  become: true
+  ansible.builtin.apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: "{{ apt_cache_valid_time }}"
+
+- name: Install required system packages
+  ansible.builtin.apt:
+    pkg:
+      - adduser
+      - libfontconfig1
+      - jq
+      - net-tools
+      - logrotate
+    state: present
+
+# Create dedicated user and directory
+- name: Create dedicated user
+  ansible.builtin.user:
+    name: "{{ astar_node_user }}"
+    createhome: false
+    shell: /usr/sbin/nologin
+
+- name: Create dedicated data directory
+  ansible.builtin.file:
+    state: directory
+    path: "{{ astar_data_dir }}"
+    owner: "{{ astar_node_user }}"
+    group: "{{ astar_node_user }}"
+    recurse: yes
+    mode: "0744"
+
+# Download and install binary
+- name: Download Astar Collator binary
+  ansible.builtin.get_url:
+    url: "https://github.com/AstarNetwork/Astar/releases/download/{{ astar_client_version }}/astar-collator-{{ astar_client_version }}-ubuntu-{{ astar_client_arch }}.tar.gz"
+    dest: "/tmp/astar-{{ astar_client_version }}.tar.gz"
+    mode: "0744"
+
+- name: Extract Astar Collator binary
+  ansible.builtin.unarchive:
+    src: "/tmp/astar-{{ astar_client_version }}.tar.gz"
+    dest: "/usr/local/bin"
+    remote_src: yes
+
+# Setup Systemd service
+- name: Create astar service
+  ansible.builtin.template:
+    src: astar.service.j2
+    dest: "/etc/systemd/system/astar.service"
+    mode: "0744"
+
+- name: Systemd daemon reload
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Start / Enable Astar service
+  ansible.builtin.systemd:
+    name: astar.service
+    state: "{{ astar_service_state }}"
+    enabled: "{{ astar_service_enabled }}"
