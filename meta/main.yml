@@ -10,7 +10,7 @@ collections:
 galaxy_info:
   role_name: astar
   author: "Asyraf Norafandi"
-  description: Astar Node / Collator
+  description: Simple Ansible Role to quickly deploy an Astar Archive / Collator blockchain node
   license: "license (BSD, MIT)"
   min_ansible_version: "2.10"
   platforms:

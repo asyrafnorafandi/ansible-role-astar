@@ -65,11 +65,11 @@
 - name: Systemd daemon reload
   ansible.builtin.systemd:
     daemon_reload: true
-  when: skip_molecule == false
+  when: not skip_molecule
 
 - name: Start / Enable Astar service
   ansible.builtin.systemd:
     name: astar.service
     state: "{{ astar_service_state }}"
     enabled: "{{ astar_service_enabled }}"
-  when: skip_molecule == false
+  when: not skip_molecule
