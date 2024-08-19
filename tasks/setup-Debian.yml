@@ -1,7 +1,7 @@
 ---
 # Setup system tz and hostnme
 - name: Setup timezone
-  timezone:
+  community.general.timezone:
     name: "{{ tz_region }}"
 
 - name: Setup hostname
