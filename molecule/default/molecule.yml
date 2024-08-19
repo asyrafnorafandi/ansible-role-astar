@@ -5,8 +5,6 @@ dependency:
   options:
     requirements-file: requirements.yml
     ignore-errors: true
-driver:
-  name: docker
 platforms:
   - name: instance
     image: ubuntu:22.04
