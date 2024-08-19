@@ -55,6 +55,10 @@
     astar_client_version: "{{ astar_grab_latest_version.stdout }}"
   when: astar_client_version is not defined
 
+- name: Check version
+  debug:
+    var: astar_client_version
+
 - name: Download Astar Collator binary
   ansible.builtin.get_url:
     url: "https://github.com/AstarNetwork/Astar/releases/download/{{ astar_client_version }}/astar-collator-{{ astar_client_version }}-ubuntu-{{ astar_client_arch }}.tar.gz"
