@@ -1,2 +1,38 @@
 ---
-# defaults file for astar
+# Swap Config
+swap_enabled: true
+swap_file_state: present # Set to absent to disable
+swap_file_size_mb: "512"
+swap_swappiness: "60"
+swap_file_path: /swapfile
+
+# VM System Config
+tz_region: Asia/Singapore
+apt_cache_valid_time: 86400 # One day
+
+# Astar System config
+astar_node_user: astar
+astar_node_name: astar-node
+astar_network_chain: astar # shiden | shibuya
+astar_telemetry_url: wss://telemetry.polkadot.io/submit/0
+astar_data_dir: /var/lib/astar
+astar_client_version: v5.43.0
+astar_client_arch: x86_64
+astar_service_state: started
+astar_service_enabled: true
+
+# Astar Node Config
+astar_node_type: "collator" # archive | collator
+astar_collator_state_pruning: 1000
+astar_collator_blocks_pruning: 1000
+astar_rpc_max_request_size: 1
+astar_rpc_max_response_size: 1
+
+astar_extra_commands: []
+# Example extra commands
+#   astar_extra_commands:
+#     - --enable-evm-rpc
+#     - --ethapi=debug
+
+# Misc
+skip_molecule: false # To selectively skip certain tasks during testing

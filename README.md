@@ -58,6 +58,11 @@ None.
 
 ## 🕸️ <a name="dependencies">Dependencies</a>
 
+```bash
+# Install dependencies locally
+$ ansible-galaxy install -r requirements.yml
+```
+
 Ansible Role dependencies:
 
 - [geerlingguy.swap](https://github.com/geerlingguy/ansible-role-swap)

@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: localhost
+
+  vars:
+    swap_enabled: false
+    skip_molecule: true
+
+  tasks:
+    - name: Testing role
+      ansible.builtin.include_role:
+        name: astar
+        tasks_from: main.yml

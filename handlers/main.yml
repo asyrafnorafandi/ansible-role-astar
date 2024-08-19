@@ -1,2 +1,12 @@
 ---
 # handlers file for astar
+- name: Restart astar
+  ansible.builtin.service:
+    name: astar
+    state: restarted
+
+- name: Reload astar
+  ansible.builtin.service:
+    name: nginx
+    state: reloaded
+  when: astar_service_state == "started"

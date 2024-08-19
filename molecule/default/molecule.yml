@@ -1,0 +1,11 @@
+---
+role_name_check: 1
+dependency:
+  name: galaxy
+  options:
+    ignore-errors: true
+platforms:
+  - name: instance
+    image: ubuntu:22.04
+    privileged: true
+    pre_build_image: true

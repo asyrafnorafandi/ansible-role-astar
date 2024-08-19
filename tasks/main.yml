@@ -1,2 +1,11 @@
 ---
-# tasks file for astar
+- name: Run setup for Debian
+  ansible.builtin.include_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Ensure astar service is running as configured.
+  ansible.builtin.service:
+    name: nginx
+    state: "{{ astar_service_state }}"
+    enabled: "{{ astar_service_enabled }}"
+  when: not skip_molecule

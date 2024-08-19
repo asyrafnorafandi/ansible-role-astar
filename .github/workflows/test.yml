@@ -1,0 +1,26 @@
+name: Molecule
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  molecule:
+    name: Molecule Tests
+    strategy:
+      matrix:
+        os:
+          # - debian-12
+          - ubuntu-22.04
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Molecule
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_command: test
+        env:
+          ANSIBLE_FORCE_COLOR: "1"
