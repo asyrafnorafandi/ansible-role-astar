@@ -24,6 +24,7 @@
       - jq
       - net-tools
       - logrotate
+      - curl
     state: present
 
 # Create dedicated user and directory
@@ -54,10 +55,6 @@
   ansible.builtin.set_fact:
     astar_client_version: "{{ astar_grab_latest_version.stdout }}"
   when: astar_client_version is not defined
-
-- name: Check version
-  debug:
-    var: astar_grab_latest_version
 
 - name: Download Astar Collator binary
   ansible.builtin.get_url:
