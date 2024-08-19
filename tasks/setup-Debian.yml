@@ -48,10 +48,8 @@
   ansible.builtin.shell: |
     curl -s https://api.github.com/repos/AstarNetwork/Astar/releases/latest | jq -r '.tag_name'
   register: astar_grab_latest_version
-  changed_when: true
+  changed_when: false
   when: astar_client_version is not defined
-  tags:
-    - molecule-idempotence-notest
 
 - name: Set latest version
   ansible.builtin.set_fact:
