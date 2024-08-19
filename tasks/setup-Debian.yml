@@ -57,7 +57,7 @@
 
 - name: Check version
   debug:
-    var: astar_client_version
+    var: astar_grab_latest_version
 
 - name: Download Astar Collator binary
   ansible.builtin.get_url:
